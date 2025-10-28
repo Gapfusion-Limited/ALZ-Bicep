@@ -37,11 +37,17 @@ param parLandingZoneMgConfidentialEnable bool = false
 param parTelemetryOptOut bool = false
 
 var varMgIds = {
-  intRoot: '${parTopLevelManagementGroupPrefix}${parTopLevelManagementGroupSuffix}'
-  platform: '${parTopLevelManagementGroupPrefix}-platform${parTopLevelManagementGroupSuffix}'
-  landingZones: '${parTopLevelManagementGroupPrefix}-landingzones${parTopLevelManagementGroupSuffix}'
-  decommissioned: '${parTopLevelManagementGroupPrefix}-decommissioned${parTopLevelManagementGroupSuffix}'
-  sandbox: '${parTopLevelManagementGroupPrefix}-sandbox${parTopLevelManagementGroupSuffix}'
+  // intRoot: '${parTopLevelManagementGroupPrefix}${parTopLevelManagementGroupSuffix}'
+  // platform: '${parTopLevelManagementGroupPrefix}-platform${parTopLevelManagementGroupSuffix}'
+  // landingZones: '${parTopLevelManagementGroupPrefix}-landingzones${parTopLevelManagementGroupSuffix}'
+  // decommissioned: '${parTopLevelManagementGroupPrefix}-decommissioned${parTopLevelManagementGroupSuffix}'
+  // sandbox: '${parTopLevelManagementGroupPrefix}-sandbox${parTopLevelManagementGroupSuffix}'
+  // Existing BHF structure doesn't have a prefix, so need to adjust these settings to use the current MG names
+  intRoot: parTopLevelManagementGroupPrefix
+  platform: 'Platform'
+  landingZones: 'LandingZones'
+  decommissioned: 'Decommissioned'
+  sandbox: 'Sandbox'
 }
 
 // Used if parLandingZoneMgAlzDefaultsEnable == true
