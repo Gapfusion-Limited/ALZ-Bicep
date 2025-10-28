@@ -3,34 +3,56 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "parTopLevelManagementGroupPrefix": {
-      "value": "alz"
+      "value": "BHF"
     },
     "parTopLevelManagementGroupSuffix": {
       "value": ""
     },
     "parTopLevelManagementGroupDisplayName": {
-      "value": "Azure Landing Zones"
+      "value": "BHF"
     },
     "parTopLevelManagementGroupParentId": {
       "value": ""
     },
     "parLandingZoneMgAlzDefaultsEnable": {
-      "value": true
+      "value": false
     },
     "parPlatformMgAlzDefaultsEnable": {
-      "value": true
+      "value": false
     },
     "parLandingZoneMgConfidentialEnable": {
       "value": false
     },
     "parLandingZoneMgChildren": {
-      "value": {}
+      "value": {
+        "DSE": {
+          "displayName": "Data Science Environment"
+        },
+        "Development": {
+          "displayName": "Development"
+        },
+        "ECS": {
+          "displayName": "Enterprise Common Services"
+        },
+        "Production": {
+          "displayName": "Production"
+        },
+        "TTIA": {
+          "displayName": "TTIA"
+        }
+      }
     },
     "parPlatformMgChildren": {
       "value": {}
     },
-    "parTelemetryOptOut": {
+    "parSandboxMgEnable": {
+      "value": true
+    },
+    "parDecommissionedMgEnable": {
       "value": false
+    },
+    "parCloudServiceProviderMgEnable": {
+      "value": true
     }
   }
 }

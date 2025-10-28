@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "parTopLevelManagementGroupPrefix": {
-      "value": "alz"
+      "value": "BHF"
     },
     "parManagementGroupIdOverrides": {
       "value": {}
@@ -12,25 +12,25 @@
       "value": ""
     },
     "parDdosEnabled": {
-      "value": true
+      "value": false
     },
     "parPlatformMgAlzDefaultsEnable": {
       "value": true
     },
     "parLandingZoneChildrenMgAlzDefaultsEnable": {
-      "value": true
+      "value": false
     },
     "parLandingZoneMgConfidentialEnable": {
       "value": false
     },
     "parLogAnalyticsWorkSpaceAndAutomationAccountLocation": {
-      "value": "eastus"
+      "value": "uksouth"
     },
     "parLogAnalyticsWorkspaceResourceId": {
-      "value": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/alz-logging/providers/Microsoft.OperationalInsights/workspaces/alz-log-analytics"
+      "value": "/subscriptions/06235ed1-325e-4be8-9bd3-b197661b8ff3/resourceGroups/rg-uks-core-law-01/providers/Microsoft.OperationalInsights/workspaces/law-uks-core-01"
     },
     "parLogAnalyticsWorkspaceLogRetentionInDays": {
-      "value": "365"
+      "value": "30" //365
     },
     "parLogAnalyticsWorkspaceResourceCategory": {
       "value": "allLogs"
@@ -51,16 +51,16 @@
       "value": "alz-automation-account"
     },
     "parMsDefenderForCloudEmailSecurityContact": {
-      "value": "security_contact@replace_me.com"
+      "value": "Paul.Ruler@gapfusion.com"
     },
     "parDdosProtectionPlanId": {
-      "value": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/rg-alz-hub-networking-001/providers/Microsoft.Network/ddosProtectionPlans/alz-ddos-plan"
+      "value": ""
     },
     "parPrivateDnsResourceGroupId": {
       "value": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/rg-alz-hub-networking-001"
     },
     "parPrivateDnsZonesLocation": {
-      "value": "eastus"
+      "value": "uksouth"
     },
     "parPrivateDnsZonesNamesToAuditInCorp": {
       "value": []
@@ -81,7 +81,7 @@
       "value": []
     },
     "parTelemetryOptOut": {
-      "value": false
+      "value": true
     }
   }
 }
