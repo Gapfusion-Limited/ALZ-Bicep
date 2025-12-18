@@ -35,15 +35,19 @@ param (
   [string]
   $defintionsSetTxtFileName = "_policySetDefinitionsBicepInput.txt",
   [string]
-  $assignmentsTxtFileName = "_policyAssignmentsBicepInput.txt"
+  $assignmentsTxtFileName = "_policyAssignmentsBicepInput.txt",
+  [string]
+  $alzModuleRequiredVersion = "4.1.5",
+  [string]
+  $alzGetModule = (Get-Module -ListAvailable -Name ALZ | Where-Object { $_.Version -eq $alzModuleRequiredVersion })
 )
 
 # This script relies on a custom set of classes and functions
 # defined within the [ALZ-PowerShell-Module](https://github.com/Azure/Alz-powershell-module).
-if (-not (Get-Module -ListAvailable -Name ALZ)) {
+if (-not ($alzGetModule)) {
   # Module doesn't exist, so install it
   Write-Information "====> ALZ module isn't already installed. Installing..." -InformationAction Continue
-  Install-Module -Name ALZ -Force -Scope CurrentUser -ErrorAction Stop -RequiredVersion '4.1.5'
+  Install-Module -Name ALZ -Force -Scope CurrentUser -ErrorAction Stop -RequiredVersion '4.1.5' -SkipPublisherCheck
   Write-Information "====> ALZ module now installed." -InformationAction Continue
 }
 else {

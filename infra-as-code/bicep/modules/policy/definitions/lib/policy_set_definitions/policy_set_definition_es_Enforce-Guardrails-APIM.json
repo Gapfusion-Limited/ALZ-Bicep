@@ -27,15 +27,6 @@
           "Disabled"
         ]
       },
-      "minimumApiVersion": {
-        "type": "string",
-        "defaultValue": "Deny",
-        "allowedValues": [
-          "Audit",
-          "Deny",
-          "Disabled"
-        ]
-      },
       "apimSkuVnet": {
         "type": "string",
         "defaultValue": "Deny",
@@ -212,17 +203,6 @@
         "parameters": {
           "effect": {
             "value": "[[parameters('apimSkuVnet')]"
-          }
-        },
-        "groupNames": [],
-        "definitionVersion": "1.*.*"
-      },
-      {
-        "policyDefinitionReferenceId": "Deny-Apim-Version",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/549814b6-3212-4203-bdc8-1548d342fb67",
-        "parameters": {
-          "effect": {
-            "value": "[[parameters('minimumApiVersion')]"
           }
         },
         "groupNames": [],

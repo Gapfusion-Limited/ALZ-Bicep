@@ -3,10 +3,11 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "parLogAnalyticsWorkspaceName": {
-      "value": "alz-log-analytics"
+      //"value": "alz-log-analytics"
+      "value": "uks-mgmt-log-alz-001"
     },
     "parLogAnalyticsWorkspaceLocation": {
-      "value": "eastus"
+      "value": "uksouth"
     },
     "parLogAnalyticsWorkspaceSkuName": {
       "value": "PerGB2018"
@@ -27,31 +28,36 @@
       "value": "PerfAndMap"
     },
     "parDataCollectionRuleVMInsightsName": {
-      "value": "alz-ama-vmi-dcr"
+      //"value": "alz-ama-vmi-dcr"
+      "value": "uks-mgmt-dcr-alz-ama-vmi-001"
     },
     "parDataCollectionRuleChangeTrackingName": {
-      "value": "alz-ama-ct-dcr"
+      //"value": "alz-ama-ct-dcr"
+      "value": "uks-mgmt-dcr-alz-ama-ct-001"
     },
     "parDataCollectionRuleMDFCSQLName": {
-      "value": "alz-ama-mdfcsql-dcr"
+      //"value": "alz-ama-mdfcsql-dcr"
+      "value": "uks-mgmt-dcr-alz-ama-mdfcsql-001"
     },
     "parUserAssignedManagedIdentityName": {
-      "value": "alz-umi-identity"
+      //"value": "alz-umi-identity"
+      "value": "uks-mgmt-id-alz-001"
     },
     "parUserAssignedManagedIdentityLocation": {
-      "value": "eastus"
+      "value": "uksouth"
     },
     "parAutomationAccountEnabled": {
-      "value": false
+      "value": true
     },
     "parLogAnalyticsWorkspaceLinkAutomationAccount": {
-      "value": false
+      "value": true
     },
     "parAutomationAccountName": {
-      "value": "alz-automation-account"
+      //"value": "alz-automation-account"
+      "value": "uks-mgmt-aa-alz-001"
     },
     "parAutomationAccountLocation": {
-      "value": "eastus2"
+      "value": "uksouth"
     },
     "parAutomationAccountUseManagedIdentity": {
       "value": true
@@ -61,70 +67,97 @@
     },
     "parTags": {
       "value": {
-        "Environment": "Live"
+        "AppName": "ALZ Enterprise-Scale",
+        "Application": "ALZ Enterprise-Scale",
+        "Business-Unit": "Information Technology",
+        "Cost-Code": "NotSet",
+        "Division": "Information Technology",
+        "End-Of-Life": "Never",
+        "Environment": "Production",
+        "Internal-Order": "NotSet",
+        "Owner": "Information Technology",
+        "Project-Code": "NotSet"
       }
     },
     "parLogAnalyticsWorkspaceTags": {
       "value": {
-        "Environment": "Live"
+        "AppName": "ALZ Enterprise-Scale",
+        "Application": "ALZ Enterprise-Scale",
+        "Business-Unit": "Information Technology",
+        "Cost-Code": "NotSet",
+        "Division": "Information Technology",
+        "End-Of-Life": "Never",
+        "Environment": "Production",
+        "Internal-Order": "NotSet",
+        "Owner": "Information Technology",
+        "Project-Code": "NotSet"
       }
     },
     "parAutomationAccountTags": {
       "value": {
-        "Environment": "Live"
+        "AppName": "ALZ Enterprise-Scale",
+        "Application": "ALZ Enterprise-Scale",
+        "Business-Unit": "Information Technology",
+        "Cost-Code": "NotSet",
+        "Division": "Information Technology",
+        "End-Of-Life": "Never",
+        "Environment": "Production",
+        "Internal-Order": "NotSet",
+        "Owner": "Information Technology",
+        "Project-Code": "NotSet"
       }
     },
     "parLogAnalyticsLinkedServiceAutomationAccountName": {
       "value": "Automation"
     },
     "parTelemetryOptOut": {
-      "value": false
+      "value": true
     },
     "parGlobalResourceLock": {
       "value": {
-        "kind": "None",
+        "kind": "CanNotDelete",
         "notes": "This lock was created by the ALZ Bicep Logging Module."
       }
     },
     "parAutomationAccountLock": {
       "value": {
-        "kind": "None",
+        "kind": "CanNotDelete",
         "notes": "This lock was created by the ALZ Bicep Logging Module."
       }
     },
     "parLogAnalyticsWorkspaceLock": {
       "value": {
-        "kind": "None",
+        "kind": "CanNotDelete",
         "notes": "This lock was created by the ALZ Bicep Logging Module."
       }
     },
     "parDataCollectionRuleVMInsightsLock": {
       "value": {
-        "kind": "None",
+        "kind": "CanNotDelete",
         "notes": "This lock was created by the ALZ Bicep Logging Module."
       }
     },
     "parDataCollectionRuleChangeTrackingLock": {
       "value": {
-        "kind": "None",
+        "kind": "CanNotDelete",
         "notes": "This lock was created by the ALZ Bicep Logging Module."
       }
     },
     "parDataCollectionRuleMDFCSQLLock": {
       "value": {
-        "kind": "None",
+        "kind": "CanNotDelete",
         "notes": "This lock was created by the ALZ Bicep Logging Module."
       }
     },
     "parSecurityInsightsOnboardingLock": {
       "value": {
-        "kind": "None",
+        "kind": "CanNotDelete",
         "notes": "This lock was created by the ALZ Bicep Logging Module."
       }
     },
     "parChangeTrackingSolutionLock": {
       "value": {
-        "kind": "None",
+        "kind": "CanNotDelete",
         "notes": "This lock was created by the ALZ Bicep Logging Module."
       }
     }

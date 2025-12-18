@@ -235,10 +235,6 @@
 	libDefinition: loadJsonContent('lib/policy_definitions/policy_definition_es_Deny-Storage-LocalUser.json')
 }
 {
-	name: 'Deny-Storage-minTLS'
-	libDefinition: loadJsonContent('lib/policy_definitions/policy_definition_es_Deny-Storage-minTLS.json')
-}
-{
 	name: 'Deny-Storage-NetworkAclsBypass'
 	libDefinition: loadJsonContent('lib/policy_definitions/policy_definition_es_Deny-Storage-NetworkAclsBypass.json')
 }

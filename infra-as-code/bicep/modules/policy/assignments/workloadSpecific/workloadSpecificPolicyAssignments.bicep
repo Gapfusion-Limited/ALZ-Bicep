@@ -81,6 +81,8 @@ var varDeploymentNameWrappers = {
 
 var varModDepNames = {
   modPolAssiIntRootEnforceSovereigntyGlobal: take('${varDeploymentNameWrappers.basePrefix}-enforceSovGlob-intRoot-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
+  modPolAssiIntRootDeployDenyResLocations: take('${varDeploymentNameWrappers.basePrefix}-denyResLoc-intRoot-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
+  modPolAssiIntRootDeployDenyRSGLocations: take('${varDeploymentNameWrappers.basePrefix}-denyRSGLoc-intRoot-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
   modPolAssiLzsConfidentialCorpEnforceSovereigntyConf: take('${varDeploymentNameWrappers.basePrefix}-enforceSovConf-confCorp-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
   modPolAssiLzsConfidentialOnlineEnforceSovereigntyConf: take('${varDeploymentNameWrappers.basePrefix}-enforceSovConf-confOnline-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
   modPolAssiLzsEnforceEncryptionCMK: take('${varDeploymentNameWrappers.basePrefix}-enforceEncCMK-lzs-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
@@ -137,6 +139,16 @@ var varModDepNames = {
   modPolAssiPlatformEnforceGRStorage: take('${varDeploymentNameWrappers.basePrefix}-enforceGRStorage-platform-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
   modPolAssiPlatformEnforceGRSynapse: take('${varDeploymentNameWrappers.basePrefix}-enforceGRSynapse-platform-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
   modPolAssiPlatformEnforceGRVirtualDesktop: take('${varDeploymentNameWrappers.basePrefix}-enforceGRVirtualDesktop-platform-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
+}
+
+var varPolicyAssignmentDeployDenyResLocations = {
+  definitionId: '/providers/Microsoft.Authorization/policyDefinitions/e56962a6-4747-49cd-b67b-bf8b01975c4c'
+  libDefinition: loadJsonContent('../../../policy/assignments/lib/policy_assignments/policy_assignment_es_deny_resource_locations.tmpl.json')
+}
+
+var varPolicyAssignmentDeployDenyRSGLocations = {
+  definitionId: '/providers/Microsoft.Authorization/policyDefinitions/e765b5de-1225-4ba3-bd56-1ac6695af988'
+  libDefinition: loadJsonContent('../../../policy/assignments/lib/policy_assignments/policy_assignment_es_deny_rsg_locations.tmpl.json')
 }
 
 var varPolicyAssignmentEnforceSovereignConf = {
@@ -373,6 +385,38 @@ module modPolAssiIntRootEnforceSovereigntyGlobal '../../../policy/assignments/po
     }
     parPolicyAssignmentIdentityType: varPolicyAssignmentEnforceSovereignGlobal.libDefinition.identity.type
     parPolicyAssignmentEnforcementMode: parDisableSlzDefaultPolicies ? 'DoNotEnforce' : varPolicyAssignmentEnforceSovereignGlobal.libDefinition.properties.enforcementMode
+    parTelemetryOptOut: parTelemetryOptOut
+  }
+}
+
+// Module - Policy Assignment - Deny-Resource-Locations
+module modPolAssiIntRootDeployDenyResLocations '../../../policy/assignments/policyAssignmentManagementGroup.bicep' = if (!contains(parExcludedPolicyAssignments, varPolicyAssignmentDeployDenyResLocations.libDefinition.name)) {
+  scope: managementGroup(varManagementGroupIdsUnioned.intRoot)
+  name: varModDepNames.modPolAssiIntRootDeployDenyResLocations
+  params: {
+    parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployDenyResLocations.definitionId
+    parPolicyAssignmentName: varPolicyAssignmentDeployDenyResLocations.libDefinition.name
+    parPolicyAssignmentDisplayName: varPolicyAssignmentDeployDenyResLocations.libDefinition.properties.displayName
+    parPolicyAssignmentDescription: varPolicyAssignmentDeployDenyResLocations.libDefinition.properties.description
+    parPolicyAssignmentParameters: varPolicyAssignmentDeployDenyResLocations.libDefinition.properties.parameters
+    parPolicyAssignmentIdentityType: varPolicyAssignmentDeployDenyResLocations.libDefinition.identity.type
+    parPolicyAssignmentEnforcementMode: varPolicyAssignmentDeployDenyResLocations.libDefinition.properties.enforcementMode
+    parTelemetryOptOut: parTelemetryOptOut
+  }
+}
+
+// Module - Policy Assignment - Deny-RSG-Locations
+module modPolAssiIntRootDeployDenyRSGLocations '../../../policy/assignments/policyAssignmentManagementGroup.bicep' = if (!contains(parExcludedPolicyAssignments, varPolicyAssignmentDeployDenyRSGLocations.libDefinition.name)) {
+  scope: managementGroup(varManagementGroupIdsUnioned.intRoot)
+  name: varModDepNames.modPolAssiIntRootDeployDenyRSGLocations
+  params: {
+    parPolicyAssignmentDefinitionId: varPolicyAssignmentDeployDenyRSGLocations.definitionId
+    parPolicyAssignmentName: varPolicyAssignmentDeployDenyRSGLocations.libDefinition.name
+    parPolicyAssignmentDisplayName: varPolicyAssignmentDeployDenyRSGLocations.libDefinition.properties.displayName
+    parPolicyAssignmentDescription: varPolicyAssignmentDeployDenyRSGLocations.libDefinition.properties.description
+    parPolicyAssignmentParameters: varPolicyAssignmentDeployDenyRSGLocations.libDefinition.properties.parameters
+    parPolicyAssignmentIdentityType: varPolicyAssignmentDeployDenyRSGLocations.libDefinition.identity.type
+    parPolicyAssignmentEnforcementMode: varPolicyAssignmentDeployDenyRSGLocations.libDefinition.properties.enforcementMode
     parTelemetryOptOut: parTelemetryOptOut
   }
 }

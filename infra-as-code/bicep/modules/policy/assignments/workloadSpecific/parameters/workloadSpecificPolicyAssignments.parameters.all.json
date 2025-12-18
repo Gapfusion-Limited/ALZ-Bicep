@@ -3,10 +3,22 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "parTopLevelManagementGroupPrefix": {
-      "value": "alz"
+      "value": "BHF2"
     },
     "parManagementGroupIdOverrides": {
-      "value": {}
+      "value": {
+        "platform": "Platform2",
+        "platformManagement": "Platform2",
+        "platformConnectivity": "Platform2",
+        "platformIdentity": "Platform2",
+        "landingZones": "LandingZones2",
+        "landingZonesCorp": "LandingZones2",
+        "landingZonesOnline": "LandingZones2",
+        "landingZonesConfidentialCorp": "LandingZones2",
+        "landingZonesConfidentialOnline": "LandingZones2",
+        "decommissioned": "Decommissioned2",
+        "sandbox": "Sandbox2"
+      }
     },
     "parTopLevelManagementGroupSuffix": {
       "value": ""
@@ -33,7 +45,7 @@
       "value": true
     },
     "parTelemetryOptOut": {
-      "value": false
+      "value": true
     }
   }
 }

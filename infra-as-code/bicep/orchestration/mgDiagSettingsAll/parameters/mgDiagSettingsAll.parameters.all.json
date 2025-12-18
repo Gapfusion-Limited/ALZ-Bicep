@@ -3,34 +3,47 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "parTopLevelManagementGroupPrefix": {
-      "value": "alz"
+      "value": "BHF2"
     },
     "parTopLevelManagementGroupSuffix": {
       "value": ""
     },
     "parLandingZoneMgAlzDefaultsEnable": {
-      "value": true
+      "value": false
     },
     "parPlatformMgAlzDefaultsEnable": {
-      "value": true
+      "value": false
     },
     "parLandingZoneMgConfidentialEnable": {
       "value": false
     },
     "parLogAnalyticsWorkspaceResourceId": {
-      "value": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourcegroups/alz-logging/providers/microsoft.operationalinsights/workspaces/alz-log-analytics"
+      "value": "/subscriptions/c4d2701a-4eae-4115-9dca-72a36addb2cf/resourcegroups/uks-mgmt-rsg-alz-logging-001/providers/microsoft.operationalinsights/workspaces/uks-mgmt-log-alz-001"
     },
     "parDiagnosticSettingsName": {
       "value": "toLa"
     },
     "parLandingZoneMgChildren": {
-      "value": []
+      "value": [
+        "CSP2",
+        "Rackspace2",
+        "DSE2",
+        "DMLZ2",
+        "DLZ2",
+        "Development2",
+        "ECS2",
+        "ECSCIR2",
+        "ECSMGMT2",
+        "ECSRF2",
+        "Production2",
+        "TTIA2"
+      ]
     },
     "parPlatformMgChildren": {
       "value": []
     },
     "parTelemetryOptOut": {
-      "value": false
+      "value": true
     }
   }
 }

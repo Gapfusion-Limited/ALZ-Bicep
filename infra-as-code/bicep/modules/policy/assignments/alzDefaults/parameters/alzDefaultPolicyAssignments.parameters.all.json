@@ -3,10 +3,22 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "parTopLevelManagementGroupPrefix": {
-      "value": "BHF"
+      "value": "BHF2"
     },
     "parManagementGroupIdOverrides": {
-      "value": {}
+      "value": {
+        "platform": "Platform2",
+        "platformManagement": "Platform2",
+        "platformConnectivity": "Platform2",
+        "platformIdentity": "Platform2",
+        "landingZones": "LandingZones2",
+        "landingZonesCorp": "LandingZones2",
+        "landingZonesOnline": "LandingZones2",
+        "landingZonesConfidentialCorp": "LandingZones2",
+        "landingZonesConfidentialOnline": "LandingZones2",
+        "decommissioned": "Decommissioned2",
+        "sandbox": "Sandbox2"
+      }
     },
     "parTopLevelManagementGroupSuffix": {
       "value": ""
@@ -15,7 +27,7 @@
       "value": false
     },
     "parPlatformMgAlzDefaultsEnable": {
-      "value": true
+      "value": false
     },
     "parLandingZoneChildrenMgAlzDefaultsEnable": {
       "value": false
@@ -27,7 +39,7 @@
       "value": "uksouth"
     },
     "parLogAnalyticsWorkspaceResourceId": {
-      "value": "/subscriptions/06235ed1-325e-4be8-9bd3-b197661b8ff3/resourceGroups/rg-uks-core-law-01/providers/Microsoft.OperationalInsights/workspaces/law-uks-core-01"
+      "value": "/subscriptions/c4d2701a-4eae-4115-9dca-72a36addb2cf/resourcegroups/uks-mgmt-rsg-alz-logging-001/providers/microsoft.operationalinsights/workspaces/uks-mgmt-log-alz-001"
     },
     "parLogAnalyticsWorkspaceLogRetentionInDays": {
       "value": "30" //365
@@ -36,19 +48,19 @@
       "value": "allLogs"
     },
     "parDataCollectionRuleVMInsightsResourceId": {
-      "value": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/alz-logging/providers/Microsoft.Insights/dataCollectionRules/alz-ama-vmi-dcr"
+      "value": "/subscriptions/c4d2701a-4eae-4115-9dca-72a36addb2cf/resourceGroups/UKS-MGMT-RSG-ALZ-LOGGING-001/providers/Microsoft.Insights/dataCollectionRules/uks-mgmt-dcr-alz-ama-vmi-001"
     },
     "parDataCollectionRuleChangeTrackingResourceId": {
-      "value": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/alz-logging/providers/Microsoft.Insights/dataCollectionRules/alz-ama-ct-dcr"
+      "value": "/subscriptions/c4d2701a-4eae-4115-9dca-72a36addb2cf/resourceGroups/UKS-MGMT-RSG-ALZ-LOGGING-001/providers/Microsoft.Insights/dataCollectionRules/uks-mgmt-dcr-alz-ama-ct-001"
     },
     "parDataCollectionRuleMDFCSQLResourceId": {
-      "value": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourceGroups/alz-logging/providers/Microsoft.Insights/dataCollectionRules/alz-ama-mdfcsql-dcr"
+      "value": "/subscriptions/c4d2701a-4eae-4115-9dca-72a36addb2cf/resourceGroups/UKS-MGMT-RSG-ALZ-LOGGING-001/providers/Microsoft.Insights/dataCollectionRules/uks-mgmt-dcr-alz-ama-mdfcsql-001"
     },
     "parUserAssignedManagedIdentityResourceId": {
-      "value": "/subscriptions/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx/resourcegroups/alz-logging/providers/Microsoft.ManagedIdentity/userAssignedIdentities/alz-umi-identity"
+      "value": "/subscriptions/c4d2701a-4eae-4115-9dca-72a36addb2cf/resourceGroups/UKS-MGMT-RSG-ALZ-LOGGING-001/providers/Microsoft.ManagedIdentity/userAssignedIdentities/uks-mgmt-id-alz-001"
     },
     "parAutomationAccountName": {
-      "value": "alz-automation-account"
+      "value": "uks-mgmt-aa-alz-001"
     },
     "parMsDefenderForCloudEmailSecurityContact": {
       "value": "Paul.Ruler@gapfusion.com"
@@ -72,13 +84,19 @@
       "value": false
     },
     "parVmBackupExclusionTagName": {
-      "value": ""
+      "value": "BackupDisable"
     },
     "parVmBackupExclusionTagValue": {
-      "value": []
+      "value": [
+        "true",
+        "True"
+      ]
     },
     "parExcludedPolicyAssignments": {
-      "value": []
+      "value": [
+        "Deploy-SvcHealth-BuiltIn",
+        "Deploy-Log-Analytics"
+      ]
     },
     "parTelemetryOptOut": {
       "value": true

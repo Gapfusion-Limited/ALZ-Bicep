@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "parTargetManagementGroupId": {
-            "value": "BHF"
+            "value": "BHF2"
         },
         "parTelemetryOptOut": {
             "value": true

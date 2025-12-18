@@ -48,13 +48,6 @@
       }
     }
   },
-  "Deny-Apim-Version": {
-    "parameters": {
-      "effect": {
-        "value": "[[parameters('minimumApiVersion')]"
-      }
-    }
-  },
   "Deny-Apim-without-Kv": {
     "parameters": {
       "effect": {

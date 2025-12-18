@@ -134,13 +134,6 @@
       }
     }
   },
-  "Dine-Storage-Threat-Protection": {
-    "parameters": {
-      "effect": {
-        "value": "[[parameters('storageThreatProtection')]"
-      }
-    }
-  },
   "Modify-Blob-Storage-Account-PublicEndpoint": {
     "parameters": {
       "effect": {

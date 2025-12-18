@@ -3,13 +3,13 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "parTopLevelManagementGroupPrefix": {
-      "value": "BHF"
+      "value": "BHF2"
     },
     "parTopLevelManagementGroupSuffix": {
       "value": ""
     },
     "parTopLevelManagementGroupDisplayName": {
-      "value": "BHF"
+      "value": "BHF2"
     },
     "parTopLevelManagementGroupParentId": {
       "value": ""
@@ -25,19 +25,19 @@
     },
     "parLandingZoneMgChildren": {
       "value": {
-        "DSE": {
+        "DSE2": {
           "displayName": "Data Science Environment"
         },
-        "Development": {
+        "Development2": {
           "displayName": "Development"
         },
-        "ECS": {
+        "ECS2": {
           "displayName": "Enterprise Common Services"
         },
-        "Production": {
+        "Production2": {
           "displayName": "Production"
         },
-        "TTIA": {
+        "TTIA2": {
           "displayName": "TTIA"
         }
       }
@@ -49,7 +49,7 @@
       "value": true
     },
     "parDecommissionedMgEnable": {
-      "value": false
+      "value": true
     },
     "parCloudServiceProviderMgEnable": {
       "value": true

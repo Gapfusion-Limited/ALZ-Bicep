@@ -46,22 +46,22 @@ param parCloudServiceProviderMgEnable bool
 // Platform and Child Management Groups
 var varPlatformMg = {
   //name: '${parTopLevelManagementGroupPrefix}-platform${parTopLevelManagementGroupSuffix}'
-  name: 'Platform'
+  name: 'Platform2'
   displayName: 'Platform'
 }
 
 // Used if parPlatformMgAlzDefaultsEnable == true
 var varPlatformMgChildrenAlzDefault = {
-  connectivity: {
+  connectivity2: {
     displayName: 'Connectivity'
   }
-  identity: {
+  identity2: {
     displayName: 'Identity'
   }
-  management: {
+  management2: {
     displayName: 'Management'
   }
-  security: {
+  security2: {
     displayName: 'Security'
   }
 }
@@ -69,26 +69,26 @@ var varPlatformMgChildrenAlzDefault = {
 // Landing Zones & Child Management Groups
 var varLandingZoneMg = {
   //name: '${parTopLevelManagementGroupPrefix}-landingzones${parTopLevelManagementGroupSuffix}'
-  name: 'LandingZones'
+  name: 'LandingZones2'
   displayName: 'Landing Zones'
 }
 
 // Used if parLandingZoneMgAlzDefaultsEnable == true
 var varLandingZoneMgChildrenAlzDefault = {
-  corp: {
+  corp2: {
     displayName: 'Corp'
   }
-  online: {
+  online2: {
     displayName: 'Online'
   }
 }
 
 // Used if parLandingZoneMgConfidentialEnable == true
 var varLandingZoneMgChildrenConfidential = {
-  'confidential-corp': {
+  'confidential-corp2': {
     displayName: 'Confidential Corp'
   }
-  'confidential-online': {
+  'confidential-online2': {
     displayName: 'Confidential Online'
   }
 }
@@ -122,14 +122,14 @@ var varPlatformMgChildrenUnioned = (parPlatformMgAlzDefaultsEnable && (!empty(pa
 // Sandbox Management Group
 var varSandboxMg = {
   //name: '${parTopLevelManagementGroupPrefix}-sandbox${parTopLevelManagementGroupSuffix}'
-  name: 'Sandbox'
+  name: 'Sandbox2'
   displayName: 'Sandbox'
 }
 
 // Decomissioned Management Group
 var varDecommissionedMg = {
   //name: '${parTopLevelManagementGroupPrefix}-decommissioned${parTopLevelManagementGroupSuffix}'
-  name: 'Decommissioned'
+  name: 'Decommissioned2'
   displayName: 'Decommissioned'
 }
 
@@ -184,7 +184,7 @@ resource resLandingZonesMg 'Microsoft.Management/managementGroups@2023-04-01' = 
 //BHF Custom Level 2 for CSP (Cloud Service Provider)
 resource resCspMg 'Microsoft.Management/managementGroups@2023-04-01' = if (parCloudServiceProviderMgEnable) {
   scope: tenant()
-  name: 'CSP'
+  name: 'CSP2'
   properties: {
     displayName: 'CSP'
     details: {
@@ -258,7 +258,7 @@ resource resPlatformChildMgs 'Microsoft.Management/managementGroups@2023-04-01' 
 //BHF Custom Level 3 for CSP's (Cloud Service Provider's)
 resource resCspRsMg 'Microsoft.Management/managementGroups@2023-04-01' = if (parCloudServiceProviderMgEnable) {
   scope: tenant()
-  name: 'Rackspace'
+  name: 'Rackspace2'
   properties: {
     displayName: 'Rackspace'
     details: {
@@ -273,12 +273,12 @@ resource resCspRsMg 'Microsoft.Management/managementGroups@2023-04-01' = if (par
 //Data Science Environment (DSE)
 resource resDmlzRsMg 'Microsoft.Management/managementGroups@2023-04-01' = if (!empty(parLandingZoneMgChildren)) {
   scope: tenant()
-  name: 'DMLZ'
+  name: 'DMLZ2'
   properties: {
     displayName: 'Data Management Landing Zone'
     details: {
       parent: {
-        id: resourceId('Microsoft.Management/managementGroups', 'DSE')
+        id: resourceId('Microsoft.Management/managementGroups', 'DSE2')
       }
     }
   }
@@ -289,12 +289,12 @@ resource resDmlzRsMg 'Microsoft.Management/managementGroups@2023-04-01' = if (!e
 
 resource resDlzRsMg 'Microsoft.Management/managementGroups@2023-04-01' = if (!empty(parLandingZoneMgChildren)) {
   scope: tenant()
-  name: 'DLZ'
+  name: 'DLZ2'
   properties: {
     displayName: 'Data Science Environment - DLZ'
     details: {
       parent: {
-        id: resourceId('Microsoft.Management/managementGroups', 'DSE')
+        id: resourceId('Microsoft.Management/managementGroups', 'DSE2')
       }
     }
   }
@@ -306,12 +306,12 @@ resource resDlzRsMg 'Microsoft.Management/managementGroups@2023-04-01' = if (!em
 //Enterprise Common Services (ECS)
 resource resEcscirRsMg 'Microsoft.Management/managementGroups@2023-04-01' = if (!empty(parLandingZoneMgChildren)) {
   scope: tenant()
-  name: 'ECSCIR'
+  name: 'ECSCIR2'
   properties: {
     displayName: 'Common Integration and Reporting'
     details: {
       parent: {
-        id: resourceId('Microsoft.Management/managementGroups', 'ECS')
+        id: resourceId('Microsoft.Management/managementGroups', 'ECS2')
       }
     }
   }
@@ -322,12 +322,12 @@ resource resEcscirRsMg 'Microsoft.Management/managementGroups@2023-04-01' = if (
 
 resource resEcsmgmtRsMg 'Microsoft.Management/managementGroups@2023-04-01' = if (!empty(parLandingZoneMgChildren)) {
   scope: tenant()
-  name: 'ECSMGMT'
+  name: 'ECSMGMT2'
   properties: {
     displayName: 'Enterprise Common Services Management'
     details: {
       parent: {
-        id: resourceId('Microsoft.Management/managementGroups', 'ECS')
+        id: resourceId('Microsoft.Management/managementGroups', 'ECS2')
       }
     }
   }
@@ -338,12 +338,12 @@ resource resEcsmgmtRsMg 'Microsoft.Management/managementGroups@2023-04-01' = if 
 
 resource resEcsrfRsMg 'Microsoft.Management/managementGroups@2023-04-01' = if (!empty(parLandingZoneMgChildren)) {
   scope: tenant()
-  name: 'ECSRF'
+  name: 'ECSRF2'
   properties: {
     displayName: 'Retail and Finance'
     details: {
       parent: {
-        id: resourceId('Microsoft.Management/managementGroups', 'ECS')
+        id: resourceId('Microsoft.Management/managementGroups', 'ECS2')
       }
     }
   }

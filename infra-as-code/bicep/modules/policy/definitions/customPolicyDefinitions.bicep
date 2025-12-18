@@ -253,10 +253,6 @@ var varCustomPolicyDefinitionsArray = [
     libDefinition: loadJsonContent('lib/policy_definitions/policy_definition_es_Deny-Storage-LocalUser.json')
   }
   {
-    name: 'Deny-Storage-minTLS'
-    libDefinition: loadJsonContent('lib/policy_definitions/policy_definition_es_Deny-Storage-minTLS.json')
-  }
-  {
     name: 'Deny-Storage-NetworkAclsBypass'
     libDefinition: loadJsonContent('lib/policy_definitions/policy_definition_es_Deny-Storage-NetworkAclsBypass.json')
   }
@@ -3717,13 +3713,6 @@ var varCustomPolicySetDefinitionsArray = [
         definitionVersion: '1.*.*'
       }
       {
-        definitionReferenceId: 'Deny-Apim-Version'
-        definitionId: '/providers/Microsoft.Authorization/policyDefinitions/549814b6-3212-4203-bdc8-1548d342fb67'
-        definitionParameters: varPolicySetDefinitionEsEnforceGuardrailsAPIMParameters['Deny-Apim-Version'].parameters
-        definitionGroups: []
-        definitionVersion: '1.*.*'
-      }
-      {
         definitionReferenceId: 'Deny-Apim-without-Kv'
         definitionId: '/providers/Microsoft.Authorization/policyDefinitions/f1cc7827-022c-473e-836e-5a51cae0b249'
         definitionParameters: varPolicySetDefinitionEsEnforceGuardrailsAPIMParameters['Deny-Apim-without-Kv'].parameters
@@ -5454,13 +5443,6 @@ var varCustomPolicySetDefinitionsArray = [
         definitionParameters: varPolicySetDefinitionEsEnforceGuardrailsStorageParameters['Deny-Storage-Shared-Key'].parameters
         definitionGroups: []
         definitionVersion: '2.*.*'
-      }
-      {
-        definitionReferenceId: 'Dine-Storage-Threat-Protection'
-        definitionId: '/providers/Microsoft.Authorization/policyDefinitions/361c2074-3595-4e5d-8cab-4f21dffc835c'
-        definitionParameters: varPolicySetDefinitionEsEnforceGuardrailsStorageParameters['Dine-Storage-Threat-Protection'].parameters
-        definitionGroups: []
-        definitionVersion: '1.*.*'
       }
       {
         definitionReferenceId: 'Modify-Blob-Storage-Account-PublicEndpoint'

@@ -44,10 +44,10 @@ var varMgIds = {
   // sandbox: '${parTopLevelManagementGroupPrefix}-sandbox${parTopLevelManagementGroupSuffix}'
   // Existing BHF structure doesn't have a prefix, so need to adjust these settings to use the current MG names
   intRoot: parTopLevelManagementGroupPrefix
-  platform: 'Platform'
-  landingZones: 'LandingZones'
-  decommissioned: 'Decommissioned'
-  sandbox: 'Sandbox'
+  platform: 'Platform2'
+  landingZones: 'LandingZones2'
+  decommissioned: 'Decommissioned2'
+  sandbox: 'Sandbox2'
 }
 
 // Used if parLandingZoneMgAlzDefaultsEnable == true
@@ -71,77 +71,102 @@ var varLandingZoneMgChildrenConfidential = {
 }
 
 // Used if parLandingZoneMgConfidentialEnable not empty
-var varLandingZoneMgCustomChildren = [for customMg in parLandingZoneMgChildren: {
-  mgId: '${parTopLevelManagementGroupPrefix}-landingzones-${customMg}${parTopLevelManagementGroupSuffix}'
-}]
+var varLandingZoneMgCustomChildren = [
+  for customMg in parLandingZoneMgChildren: {
+    //mgId: '${parTopLevelManagementGroupPrefix}-landingzones-${customMg}${parTopLevelManagementGroupSuffix}'
+    mgId: '${customMg}'
+  }
+]
 
 // Used if parLandingZoneMgConfidentialEnable not empty
-var varPlatformMgCustomChildren = [for customMg in parPlatformMgChildren: {
-  mgId: '${parTopLevelManagementGroupPrefix}-platform-${customMg}${parTopLevelManagementGroupSuffix}'
-}]
+var varPlatformMgCustomChildren = [
+  for customMg in parPlatformMgChildren: {
+    mgId: '${parTopLevelManagementGroupPrefix}-platform-${customMg}${parTopLevelManagementGroupSuffix}'
+  }
+]
 
 // Build final object based on input parameters for default and confidential child MGs of LZs
-var varLandingZoneMgDefaultChildrenUnioned = (parLandingZoneMgAlzDefaultsEnable && parLandingZoneMgConfidentialEnable) ? union(varLandingZoneMgChildrenAlzDefault, varLandingZoneMgChildrenConfidential) : (parLandingZoneMgAlzDefaultsEnable && !parLandingZoneMgConfidentialEnable) ? varLandingZoneMgChildrenAlzDefault : (!parLandingZoneMgAlzDefaultsEnable && parLandingZoneMgConfidentialEnable) ? varLandingZoneMgChildrenConfidential : (!parLandingZoneMgAlzDefaultsEnable && !parLandingZoneMgConfidentialEnable) ? {} : {}
+var varLandingZoneMgDefaultChildrenUnioned = (parLandingZoneMgAlzDefaultsEnable && parLandingZoneMgConfidentialEnable)
+  ? union(varLandingZoneMgChildrenAlzDefault, varLandingZoneMgChildrenConfidential)
+  : (parLandingZoneMgAlzDefaultsEnable && !parLandingZoneMgConfidentialEnable)
+      ? varLandingZoneMgChildrenAlzDefault
+      : (!parLandingZoneMgAlzDefaultsEnable && parLandingZoneMgConfidentialEnable)
+          ? varLandingZoneMgChildrenConfidential
+          : (!parLandingZoneMgAlzDefaultsEnable && !parLandingZoneMgConfidentialEnable) ? {} : {}
 
 // Build final object based on input parameters for default child MGs of Platform LZs
-var varPlatformMgDefaultChildrenUnioned = (parPlatformMgAlzDefaultsEnable) ? varPlatformMgChildrenAlzDefault : (parPlatformMgAlzDefaultsEnable) ? varPlatformMgChildrenAlzDefault : (!parPlatformMgAlzDefaultsEnable) ? {} : (!parPlatformMgAlzDefaultsEnable) ? {} : {}
+var varPlatformMgDefaultChildrenUnioned = (parPlatformMgAlzDefaultsEnable)
+  ? varPlatformMgChildrenAlzDefault
+  : (parPlatformMgAlzDefaultsEnable)
+      ? varPlatformMgChildrenAlzDefault
+      : (!parPlatformMgAlzDefaultsEnable) ? {} : (!parPlatformMgAlzDefaultsEnable) ? {} : {}
 
 // Customer Usage Attribution Id
 var varCuaid = 'f49c8dfb-c0ce-4ee0-b316-5e4844474dd0'
 
-module modMgDiagSet '../../modules/mgDiagSettings/mgDiagSettings.bicep' = [for mgId in items(varMgIds): {
-  scope: managementGroup(mgId.value)
-  name: 'mg-diag-set-${mgId.value}'
-  params: {
-    parLogAnalyticsWorkspaceResourceId: parLogAnalyticsWorkspaceResourceId
-    parDiagnosticSettingsName: parDiagnosticSettingsName
-    parTelemetryOptOut: parTelemetryOptOut
+module modMgDiagSet '../../modules/mgDiagSettings/mgDiagSettings.bicep' = [
+  for mgId in items(varMgIds): {
+    scope: managementGroup(mgId.value)
+    name: 'mg-diag-set-${mgId.value}'
+    params: {
+      parLogAnalyticsWorkspaceResourceId: parLogAnalyticsWorkspaceResourceId
+      parDiagnosticSettingsName: parDiagnosticSettingsName
+      parTelemetryOptOut: parTelemetryOptOut
+    }
   }
-}]
+]
 
 // Default Children Landing Zone Management Groups
-module modMgLandingZonesDiagSet '../../modules/mgDiagSettings/mgDiagSettings.bicep' = [for childMg in items(varLandingZoneMgDefaultChildrenUnioned): {
-  scope: managementGroup(childMg.value)
-  name: 'mg-diag-set-${childMg.value}'
-  params: {
-    parLogAnalyticsWorkspaceResourceId: parLogAnalyticsWorkspaceResourceId
-    parDiagnosticSettingsName: parDiagnosticSettingsName
-    parTelemetryOptOut: parTelemetryOptOut
+module modMgLandingZonesDiagSet '../../modules/mgDiagSettings/mgDiagSettings.bicep' = [
+  for childMg in items(varLandingZoneMgDefaultChildrenUnioned): {
+    scope: managementGroup(childMg.value)
+    name: 'mg-diag-set-${childMg.value}'
+    params: {
+      parLogAnalyticsWorkspaceResourceId: parLogAnalyticsWorkspaceResourceId
+      parDiagnosticSettingsName: parDiagnosticSettingsName
+      parTelemetryOptOut: parTelemetryOptOut
+    }
   }
-}]
+]
 
 // Default Children Platform Management Groups
-module modMgPlatformDiagSet '../../modules/mgDiagSettings/mgDiagSettings.bicep' = [for childMg in items(varPlatformMgDefaultChildrenUnioned): {
-  scope: managementGroup(childMg.value)
-  name: 'mg-diag-set-${childMg.value}'
-  params: {
-    parLogAnalyticsWorkspaceResourceId: parLogAnalyticsWorkspaceResourceId
-    parDiagnosticSettingsName: parDiagnosticSettingsName
-    parTelemetryOptOut: parTelemetryOptOut
+module modMgPlatformDiagSet '../../modules/mgDiagSettings/mgDiagSettings.bicep' = [
+  for childMg in items(varPlatformMgDefaultChildrenUnioned): {
+    scope: managementGroup(childMg.value)
+    name: 'mg-diag-set-${childMg.value}'
+    params: {
+      parLogAnalyticsWorkspaceResourceId: parLogAnalyticsWorkspaceResourceId
+      parDiagnosticSettingsName: parDiagnosticSettingsName
+      parTelemetryOptOut: parTelemetryOptOut
+    }
   }
-}]
+]
 
 // Custom Children Landing Zone Management Groups
-module modMgChildrenDiagSet '../../modules/mgDiagSettings/mgDiagSettings.bicep' = [for childMg in varLandingZoneMgCustomChildren: {
-  scope: managementGroup(childMg.mgId)
-  name: 'mg-diag-set-${childMg.mgId}'
-  params: {
-    parLogAnalyticsWorkspaceResourceId: parLogAnalyticsWorkspaceResourceId
-    parDiagnosticSettingsName: parDiagnosticSettingsName
-    parTelemetryOptOut: parTelemetryOptOut
+module modMgChildrenDiagSet '../../modules/mgDiagSettings/mgDiagSettings.bicep' = [
+  for childMg in varLandingZoneMgCustomChildren: {
+    scope: managementGroup(childMg.mgId)
+    name: 'mg-diag-set-${childMg.mgId}'
+    params: {
+      parLogAnalyticsWorkspaceResourceId: parLogAnalyticsWorkspaceResourceId
+      parDiagnosticSettingsName: parDiagnosticSettingsName
+      parTelemetryOptOut: parTelemetryOptOut
+    }
   }
-}]
+]
 
 // Custom Children Platform Management Groups
-module modPlatformMgChildrenDiagSet '../../modules/mgDiagSettings/mgDiagSettings.bicep' = [for childMg in varPlatformMgCustomChildren: {
-  scope: managementGroup(childMg.mgId)
-  name: 'mg-diag-set-${childMg.mgId}'
-  params: {
-    parLogAnalyticsWorkspaceResourceId: parLogAnalyticsWorkspaceResourceId
-    parDiagnosticSettingsName: parDiagnosticSettingsName
-    parTelemetryOptOut: parTelemetryOptOut
+module modPlatformMgChildrenDiagSet '../../modules/mgDiagSettings/mgDiagSettings.bicep' = [
+  for childMg in varPlatformMgCustomChildren: {
+    scope: managementGroup(childMg.mgId)
+    name: 'mg-diag-set-${childMg.mgId}'
+    params: {
+      parLogAnalyticsWorkspaceResourceId: parLogAnalyticsWorkspaceResourceId
+      parDiagnosticSettingsName: parDiagnosticSettingsName
+      parTelemetryOptOut: parTelemetryOptOut
+    }
   }
-}]
+]
 
 // Optional Deployment for Customer Usage Attribution
 module modCustomerUsageAttribution '../../CRML/customerUsageAttribution/cuaIdManagementGroup.bicep' = if (!parTelemetryOptOut) {
