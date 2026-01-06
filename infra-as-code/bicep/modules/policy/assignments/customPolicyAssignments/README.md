@@ -4,10 +4,10 @@ This module deploys any additional and custom Azure Landing Zone Azure Policy As
 
 This module was put together to mitigate against the compiled ARM template limit of 4MB.
 
-The existing [alzDefaultPolicyAssignments.bicep](alzDefaults/alzDefaultPolicyAssignments.bicep) is already very close to the limit of a compiled output of 4MB, with just a couple of additional existing policy definitions wanting to be assigned to additional management groups triggering the exception message: -
+The existing [alzDefaultPolicyAssignments.bicep](../alzDefaults/alzDefaultPolicyAssignments.bicep) is already very close to the limit of a compiled output of 4MB, with just a couple of additional existing policy definitions wanting to be assigned to additional management groups triggering the exception message: -
 ``` RequestContentTooLarge - The request content size exceeds the maximum size of 4 MB. ```
 
-The [workloadSpecificPolicyAssignments.bicep](workloadSpecific/workloadSpecificPolicyAssignments.bicep) module has headroom currently to allow further policies to be added, but this isn't always the correct area to add more generic policies e.g. Limit / Enforce Resource and Resource Group Locations, Tagging, and Naming Convention policies to be assigned at a more generic level which is not individual workload specific.
+The [workloadSpecificPolicyAssignments.bicep](../workloadSpecific/workloadSpecificPolicyAssignments.bicep) module has headroom currently to allow further policies to be added, but this isn't always the correct area to add more generic policies e.g. Limit / Enforce Resource and Resource Group Locations, Tagging, and Naming Convention policies to be assigned at a more generic level which is not individual workload specific.
 
 The issue is described in more detail within the [Adding Custom Azure Policy Definitions](https://github.com/Azure/ALZ-Bicep/wiki/AddingPolicyDefs), and more specifically the [Handling a large amount of additional custom Policy Definitions](https://github.com/Azure/ALZ-Bicep/wiki/AddingPolicyDefs#handling-a-large-amount-of-additional-custom-policy-definitions) sections of this documentation.
 
