@@ -1,0 +1,36 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "parTopLevelManagementGroupPrefix": {
+      "value": "BHF2"
+    },
+    "parManagementGroupIdOverrides": {
+      "value": {
+        "platform": "Platform2",
+        "platformManagement": "Platform2",
+        "platformConnectivity": "Platform2",
+        "platformIdentity": "Platform2",
+        "landingZones": "LandingZones2",
+        "landingZonesCorp": "LandingZones2",
+        "landingZonesOnline": "LandingZones2",
+        "landingZonesConfidentialCorp": "LandingZones2",
+        "landingZonesConfidentialOnline": "LandingZones2",
+        "decommissioned": "Decommissioned2",
+        "sandbox": "Sandbox2"
+      }
+    },
+    "parTopLevelManagementGroupSuffix": {
+      "value": ""
+    },
+    "parPolicyAssignmentsToDisableEnforcement": {
+      "value": []
+    },
+    "parDisableCustomDefaultPolicies": {
+      "value": false
+    },
+    "parExcludedPolicyAssignments": {
+      "value": []
+    }
+  }
+}
