@@ -30,6 +30,16 @@ stages:
             displayName: "List files in working directory"
 
           - task: AzurePowerShell@5
+            displayName: "Install latest PowerShell Az Module"
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              azurePowerShellVersion: "LatestVersion"
+              pwsh: true
+              ScriptType: "InlineScript"
+              Inline: |
+                Update-PSResource Az -Repository PSGallery -Force
+
+          - task: AzurePowerShell@5
             name: Management_Groups_Deployment
             displayName: "Management Groups Deployment"
             inputs:
