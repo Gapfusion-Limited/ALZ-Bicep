@@ -30,16 +30,6 @@ stages:
             displayName: "List files in working directory"
 
           - task: AzurePowerShell@5
-            displayName: "Install latest PowerShell Az Module"
-            inputs:
-              azureSubscription: $(serviceConnectionName)
-              azurePowerShellVersion: "LatestVersion"
-              pwsh: true
-              ScriptType: "InlineScript"
-              Inline: |
-                Update-PSResource -Name "Az" -Repository PSGallery -Force
-
-          - task: AzurePowerShell@5
             name: Management_Groups_Deployment
             displayName: "Management Groups Deployment"
             inputs:
@@ -51,9 +41,139 @@ stages:
                 $inputObject = @{
                 DeploymentName        = -join ('alz-MGDeployment-{0}' -f (Get-Date -Format 'yyyyMMddTHHMMssffffZ'))[0..63]
                 Location              = '$(location)'
-                TemplateFile          = "infra-as-code/bicep/modules/managementGroups/managementGroupsScopeEscape.bicep"
+                TemplateFile          = 'infra-as-code/bicep/modules/managementGroups/managementGroupsScopeEscape.bicep'
                 TemplateParameterFile = 'infra-as-code/bicep/modules/managementGroups/parameters/managementGroups.parameters.all.json'
                 ManagementGroupId     = '$(tenantRootGroup)'
+                }
+                New-AzManagementGroupDeployment -whatif @inputObject
+
+          - task: AzurePowerShell@5
+            name: Custom_Policy_Definitions_Module_Deployment
+            displayName: "Custom Policy Definitions Module Deployment"
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              azurePowerShellVersion: "LatestVersion"
+              pwsh: true
+              ScriptType: "InlineScript"
+              Inline: |
+                $inputObject = @{
+                DeploymentName        = -join ('alz-PolicyDefsDeployment-{0}' -f (Get-Date -Format 'yyyyMMddTHHMMssffffZ'))[0..63]
+                Location              = '$(location)'
+                ManagementGroupId     = '$(ManagementGroupPrefix)'
+                TemplateFile          = 'infra-as-code/bicep/modules/policy/definitions/customPolicyDefinitions.bicep'
+                TemplateParameterFile = 'infra-as-code/bicep/modules/policy/definitions/parameters/customPolicyDefinitions.parameters.all.json'
+                }
+                New-AzManagementGroupDeployment -whatif @inputObject
+
+          - task: AzurePowerShell@5
+            name: Custom_RBAC_Role_Definitions_Module_Deployment
+            displayName: "Custom RBAC Role Definitions Module Deployment"
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              azurePowerShellVersion: "LatestVersion"
+              pwsh: true
+              ScriptType: "InlineScript"
+              Inline: |
+                $inputObject = @{
+                DeploymentName        = -join ('alz-CustomRoleDefsDeployment-{0}' -f (Get-Date -Format 'yyyyMMddTHHMMssffffZ'))[0..63]
+                Location              = '$(location)'
+                ManagementGroupId     = '$(ManagementGroupPrefix)'
+                TemplateFile          = 'infra-as-code/bicep/modules/customRoleDefinitions/customRoleDefinitions.bicep'
+                TemplateParameterFile = 'infra-as-code/bicep/modules/customRoleDefinitions/parameters/customRoleDefinitions.parameters.all.json'
+                }
+                New-AzManagementGroupDeployment -whatif @inputObject
+
+          - task: AzurePowerShell@5
+            name: Logging_and_Security_Module_Deployment
+            displayName: "Logging and Security Module Deployment"
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              azurePowerShellVersion: "LatestVersion"
+              pwsh: true
+              ScriptType: "InlineScript"
+              Inline: |
+                # Set Platform management subscripion ID as the current subscription
+                $ManagementSubscriptionId = '$(platformSubscriptionId)'
+                Select-AzSubscription -SubscriptionId $ManagementSubscriptionId
+
+                $inputObject = @{
+                DeploymentName        = -join ('alz-LoggingDeploy-{0}' -f (Get-Date -Format 'yyyyMMddTHHMMssffffZ'))[0..63]
+                ResourceGroupName     = '$(platformLoggingResourceGroup)'
+                TemplateFile          = 'infra-as-code/bicep/modules/logging/logging.bicep'
+                TemplateParameterFile = 'infra-as-code/bicep/modules/logging/parameters/logging.parameters.all.json'
+                }
+
+                New-AzResourceGroupDeployment -whatif @inputObject
+
+          - task: AzurePowerShell@5
+            name: Management_Group_Diagnostic_Settings_Module_Deployment
+            displayName: "Management Group Diagnostic Settings Module Deployment"
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              azurePowerShellVersion: "LatestVersion"
+              pwsh: true
+              ScriptType: "InlineScript"
+              Inline: |
+                $inputObject = @{
+                DeploymentName        = -join ('alz-MgDiagsDeployment-{0}' -f (Get-Date -Format 'yyyyMMddTHHMMssffffZ'))[0..63]
+                Location              = '$(location)'
+                ManagementGroupId     = '$(ManagementGroupPrefix)'
+                TemplateFile          = 'infra-as-code/bicep/orchestration/mgDiagSettingsAll/mgDiagSettingsAll.bicep'
+                TemplateParameterFile = 'infra-as-code/bicep/orchestration/mgDiagSettingsAll/parameters/mgDiagSettingsAll.parameters.all.json'
+                }
+                New-AzManagementGroupDeployment -whatif @inputObject
+
+          - task: AzurePowerShell@5
+            name: ALZ_Defaults_Policy_Assignments_Module_Deployment
+            displayName: "ALZ Defaults Policy Assignments Module Deployment"
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              azurePowerShellVersion: "LatestVersion"
+              pwsh: true
+              ScriptType: "InlineScript"
+              Inline: |
+                $inputObject = @{
+                DeploymentName        = -join ('alz-alzPolicyAssignmentDefaultsDeployment-{0}' -f (Get-Date -Format 'yyyyMMddTHHMMssffffZ'))[0..63]
+                Location              = '$(location)'
+                ManagementGroupId     = '$(ManagementGroupPrefix)'
+                TemplateFile          = 'infra-as-code/bicep/modules/policy/assignments/alzDefaults/alzDefaultPolicyAssignments.bicep'
+                TemplateParameterFile = 'infra-as-code/bicep/modules/policy/assignments/alzDefaults/parameters/alzDefaultPolicyAssignments.parameters.all.json'
+                }
+                New-AzManagementGroupDeployment -whatif @inputObject
+
+          - task: AzurePowerShell@5
+            name: Workload_Specific_Policy_Assignments_Module_Deployment
+            displayName: "Workload Specific Policy Assignments Module Deployment"
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              azurePowerShellVersion: "LatestVersion"
+              pwsh: true
+              ScriptType: "InlineScript"
+              Inline: |
+                $inputObject = @{
+                DeploymentName        = -join ('alz-alzPolicyAssignmentWorkloadSpecificDeployment-{0}' -f (Get-Date -Format 'yyyyMMddTHHMMssffffZ'))[0..63]
+                Location              = '$(location)'
+                ManagementGroupId     = '$(ManagementGroupPrefix)'
+                TemplateFile          = 'infra-as-code/bicep/modules/policy/assignments/workloadSpecific/workloadSpecificPolicyAssignments.bicep'
+                TemplateParameterFile = 'infra-as-code/bicep/modules/policy/assignments/workloadSpecific/parameters/workloadSpecificPolicyAssignments.parameters.all.json'
+                }
+                New-AzManagementGroupDeployment -whatif @inputObject
+
+          - task: AzurePowerShell@5
+            name: Custom_Policy_Assignments_Module_Deployment
+            displayName: "Custom Policy Assignments Module Deployment"
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              azurePowerShellVersion: "LatestVersion"
+              pwsh: true
+              ScriptType: "InlineScript"
+              Inline: |
+                $inputObject = @{
+                DeploymentName        = -join ('alz-alzPolicyAssignmentCustomDeployment-{0}' -f (Get-Date -Format 'yyyyMMddTHHMMssffffZ'))[0..63]
+                Location              = '$(location)'
+                ManagementGroupId     = '$(ManagementGroupPrefix)'
+                TemplateFile          = 'infra-as-code/bicep/modules/policy/assignments/customPolicyAssignments/customPolicyAssignments.bicep'
+                TemplateParameterFile = 'infra-as-code/bicep/modules/policy/assignments/customPolicyAssignments/parameters/customPolicyAssignments.parameters.all.json'
                 }
                 New-AzManagementGroupDeployment -whatif @inputObject
 
