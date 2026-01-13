@@ -40,10 +40,10 @@ stages:
               Inline: |
                 $inputObject = @{
                 DeploymentName        = -join ('alz-MGDeployment-{0}' -f (Get-Date -Format 'yyyyMMddTHHMMssffffZ'))[0..63]
-                Location              = $(location)
+                Location              = '$(location)'
                 TemplateFile          = "infra-as-code/bicep/modules/managementGroups/managementGroupsScopeEscape.bicep"
                 TemplateParameterFile = 'infra-as-code/bicep/modules/managementGroups/parameters/managementGroups.parameters.all.json'
-                ManagementGroupId     = $(tenantRootGroup)
+                ManagementGroupId     = '$(tenantRootGroup)'
                 }
                 New-AzManagementGroupDeployment -whatif @inputObject
 
