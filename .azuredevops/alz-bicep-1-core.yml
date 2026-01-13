@@ -37,7 +37,7 @@ stages:
               pwsh: true
               ScriptType: "InlineScript"
               Inline: |
-                Update-PSResource Az -Repository PSGallery -Force
+                Update-PSResource -Name "Az" -Repository PSGallery -Force
 
           - task: AzurePowerShell@5
             name: Management_Groups_Deployment
