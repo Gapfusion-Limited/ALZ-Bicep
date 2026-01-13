@@ -177,13 +177,6 @@ var varCustomPolicySetDefinitionsArray = [
 				definitionVersion: '3.*.*'
 			}
 			{
-				definitionReferenceId: 'Deny-Cognitive-Services-Public-Network-Access'
-				definitionId: '/providers/Microsoft.Authorization/policyDefinitions/0725b4dd-7e76-479c-a735-68e7ee23d5ca'
-				definitionParameters: varPolicySetDefinitionEsDenyPublicPaaSEndpointsParameters['Deny-Cognitive-Services-Public-Network-Access'].parameters
-				definitionGroups: []
-				definitionVersion: '3.*.*'
-			}
-			{
 				definitionReferenceId: 'Deny-CognitiveSearch-PublicEndpoint'
 				definitionId: '/providers/Microsoft.Authorization/policyDefinitions/ee980b6d-0eca-4501-8d54-f6290fd512c3'
 				definitionParameters: varPolicySetDefinitionEsDenyPublicPaaSEndpointsParameters['Deny-CognitiveSearch-PublicEndpoint'].parameters

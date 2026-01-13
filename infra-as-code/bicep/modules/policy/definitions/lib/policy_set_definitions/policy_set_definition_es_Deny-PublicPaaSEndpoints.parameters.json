@@ -118,13 +118,6 @@
       }
     }
   },
-  "Deny-Cognitive-Services-Public-Network-Access": {
-    "parameters": {
-      "effect": {
-        "value": "[[parameters('cognitiveServicesPublicNetworkAccess')]"
-      }
-    }
-  },
   "Deny-CognitiveSearch-PublicEndpoint": {
     "parameters": {
       "effect": {

@@ -443,15 +443,6 @@
           "Disabled"
         ]
       },
-      "cognitiveServicesPublicNetworkAccess": {
-        "type": "string",
-        "defaultValue": "Deny",
-        "allowedValues": [
-          "Audit",
-          "Deny",
-          "Disabled"
-        ]
-      },
       "serviceBusDisablePublicNetworkAccess": {
         "type": "string",
         "defaultValue": "Deny",
@@ -912,17 +903,6 @@
         },
         "groupNames": [],
         "definitionVersion": "2.*.*"
-      },
-      {
-        "policyDefinitionReferenceId": "Deny-Cognitive-Services-Public-Network-Access",
-        "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/0725b4dd-7e76-479c-a735-68e7ee23d5ca",
-        "parameters": {
-          "effect": {
-            "value": "[[parameters('cognitiveServicesPublicNetworkAccess')]"
-          }
-        },
-        "groupNames": [],
-        "definitionVersion": "3.*.*"
       },
       {
         "policyDefinitionReferenceId": "Deny-Cognitive-Services-Network-Access",

@@ -6,7 +6,140 @@
     "description": "This policy initiative is a group of policies that prevents creation of Azure PaaS services with exposed public endpoints.",
     "displayName": "Public network access should be disabled for PaaS services",
     "notScopes": [],
-    "parameters": {},
+    "parameters": {
+      "ACRPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "adfPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "AFSPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "adxPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "AKSPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "AppConfigPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "ApiManPublicIpDenyEffect": {
+        "value": "AuditIfNotExists"
+      },
+      "appSlotsPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "AsPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "AsePublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "AsrVaultDenyEffect": {
+        "value": "Audit"
+      },
+      "AutomationPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "avdHostPoolPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "avdWorkspacePublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "BatchPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "BotServicePublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "cognitiveSearchPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "cognitiveServicesNetworkAccess": {
+        "value": "Audit"
+      },
+      "ContainerAppsEnvironmentDenyEffect": {
+        "value": "Audit"
+      },
+      "containerAppsPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "CosmosPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "eventGridPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "eventGridTopicPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "eventHubNamespacesPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "FunctionPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "FunctionAppSlotPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "grafanaPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "keyVaultManagedHsmDisablePublicNetwork": {
+        "value": "Audit"
+      },
+      "KeyVaultPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "logicAppPublicNetworkAccessEffect": {
+        "value": "Audit"
+      },
+      "managedDiskPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "MariaDbPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "MlPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "mySqlPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "MySQLFlexPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "postgreSqlPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "PostgreSQLFlexPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "RedisCachePublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "serviceBusDisablePublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "sqlManagedPublicNetworkAccess": {
+        "value": "Audit"
+      },
+      "SqlServerPublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "StoragePublicIpDenyEffect": {
+        "value": "Audit"
+      },
+      "storageAccountsPublicAccess": {
+        "value": "Audit"
+      },
+      "synapsePublicNetworkAccess": {
+        "value": "Audit"
+      }
+    },
     "policyDefinitionId": "${varTopLevelManagementGroupResourceId}/providers/Microsoft.Authorization/policySetDefinitions/Deny-PublicPaaSEndpoints",
     "scope": null,
     "enforcementMode": "Default"

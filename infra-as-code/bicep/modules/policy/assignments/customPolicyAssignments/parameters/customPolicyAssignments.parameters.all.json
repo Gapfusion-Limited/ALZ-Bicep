@@ -24,7 +24,12 @@
       "value": ""
     },
     "parPolicyAssignmentsToDisableEnforcement": {
-      "value": []
+      "value": [
+        "Deny-RSG-Locations",
+        "Deny-Resource-Locations",
+        "Deny-Public-IP-On-NIC",
+        "Deny-Public-Endpoints"
+      ]
     },
     "parDisableCustomDefaultPolicies": {
       "value": false

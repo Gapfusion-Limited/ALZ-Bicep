@@ -1,0 +1,102 @@
+name: Deploy-ALZ-Enterprise-Scale-Modules
+
+trigger:
+  - none
+
+variables:
+  - group: alz_pipeline_variables
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+  # -------------------------------
+  # Stage 1: What-If Analysis
+  # -------------------------------
+  - stage: WhatIf
+    displayName: "What-If Analysis"
+    jobs:
+      - job: Deploy_ALZ_ARM_Template_WhatIf
+        displayName: "What-If Deploy ALZ Enterprise Scale"
+        pool:
+          vmImage: "ubuntu-latest"
+        steps:
+          - checkout: self
+            displayName: "Checkout Repository"
+
+          - script: |
+              echo "Listing contents of System.DefaultWorkingDirectory:"
+              ls -R $(System.DefaultWorkingDirectory)
+            displayName: "List files in working directory"
+
+          - task: AzurePowerShell@5
+            name: Management_Groups_Deployment
+            displayName: "Management Groups Deployment"
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              azurePowerShellVersion: "LatestVersion"
+              pwsh: true
+              ScriptType: "InlineScript"
+              Inline: |
+                $inputObject = @{
+                DeploymentName        = -join ('alz-MGDeployment-{0}' -f (Get-Date -Format 'yyyyMMddTHHMMssffffZ'))[0..63]
+                Location              = $(location)
+                TemplateFile          = "infra-as-code/bicep/modules/managementGroups/managementGroupsScopeEscape.bicep"
+                TemplateParameterFile = 'infra-as-code/bicep/modules/managementGroups/parameters/managementGroups.parameters.all.json'
+                ManagementGroupId     = $(tenantRootGroup)
+                }
+                New-AzManagementGroupDeployment -whatif @inputObject
+
+  # -------------------------------
+  # Stage 2: Manual Approval
+  # -------------------------------
+  - stage: Approval
+    displayName: "Pause for Approval"
+    dependsOn: WhatIf
+    jobs:
+      - job: Pause_for_approval
+        displayName: "Pause for approval before deploying ALZ Enterprise Scale"
+        pool: server
+        steps:
+          - task: ManualValidation@1
+            name: Approval_to_proceed
+            displayName: "Approve to proceed with ALZ Enterprise Scale deployment"
+            inputs:
+              instructions: "Please validate the What-If results above. If everything looks good, approve to proceed with the deployment."
+              onTimeout: "reject"
+              timeoutInMinutes: "60"
+              allowApproversToApproveTheirOwnRuns: true
+              approvers: "Pipeline-Approvers"
+
+  # -------------------------------
+  # Stage 3: Final Deployment
+  # -------------------------------
+  - stage: Deploy
+    displayName: "Final Deployment"
+    dependsOn: Approval
+    jobs:
+      - job: Deploy_AMBA_ARM_Template_Final
+        displayName: "Deploy ALZ Enterprise Scale"
+        pool:
+          vmImage: "ubuntu-latest"
+        steps:
+          - task: AzureCLI@2
+            displayName: "Register Required Resource Providers"
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              scriptType: "bash"
+              scriptLocation: "scriptPath"
+              scriptPath: "$(System.DefaultWorkingDirectory)/patterns/alz/scripts/RecursiveCheckSubscriptionResourceProviders.sh"
+
+          - task: AzureCLI@2
+            displayName: "Deploy ALZ Enterprise Scale"
+            inputs:
+              azureSubscription: $(serviceConnectionName)
+              scriptType: bash
+              scriptLocation: inlineScript
+              inlineScript: |
+                az deployment mg create \
+                --template-file $(System.DefaultWorkingDirectory)/patterns/alz/alzArm.json \
+                --parameters $(System.DefaultWorkingDirectory)/patterns/alz/alzArm.param.json \
+                --location $(location) \
+                --management-group-id $(ManagementGroupPrefix)

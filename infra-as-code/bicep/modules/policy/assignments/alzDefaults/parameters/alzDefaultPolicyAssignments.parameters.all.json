@@ -78,7 +78,19 @@
       "value": []
     },
     "parPolicyAssignmentsToDisableEnforcement": {
-      "value": []
+      "value": [
+        "Enforce-TLS-SSL-Q225",
+        "Deny-Public-IP",
+        "Deny-UnmanagedDisk",
+        "Enforce-GR-KeyVault",
+        "Deny-Priv-Containers-AKS",
+        "Enforce-AKS-HTTPS",
+        "Deny-Priv-Escalation-AKS",
+        "Deny-MgmtPorts-Internet",
+        "Deny-IP-Forwarding",
+        "Deny-Storage-http",
+        "Deny-Subnet-Without-Nsg"
+      ]
     },
     "parDisableAlzDefaultPolicies": {
       "value": false
