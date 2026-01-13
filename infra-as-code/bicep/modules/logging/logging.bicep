@@ -205,13 +205,13 @@ param parTelemetryOptOut bool = false
 // Customer Usage Attribution Id
 var varCuaid = 'f8087c67-cc41-46b2-994d-66e4b661860d'
 
-resource resUserAssignedManagedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
+resource resUserAssignedManagedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2024-11-30' = {
   name: parUserAssignedManagedIdentityName
   location: parUserAssignedManagedIdentityLocation
   tags: parTags
 }
 
-resource resAutomationAccount 'Microsoft.Automation/automationAccounts@2023-11-01' = if (parAutomationAccountEnabled) {
+resource resAutomationAccount 'Microsoft.Automation/automationAccounts@2024-10-23' = if (parAutomationAccountEnabled) {
   name: parAutomationAccountName
   location: parAutomationAccountLocation
   tags: parAutomationAccountTags
@@ -239,7 +239,7 @@ resource resAutomationAccountLock 'Microsoft.Authorization/locks@2020-05-01' = i
   }
 }
 
-resource resLogAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
+resource resLogAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2025-07-01' = {
   name: parLogAnalyticsWorkspaceName
   location: parLogAnalyticsWorkspaceLocation
   tags: parLogAnalyticsWorkspaceTags
@@ -262,7 +262,7 @@ resource resLogAnalyticsWorkspaceLock 'Microsoft.Authorization/locks@2020-05-01'
   }
 }
 
-resource resDataCollectionRuleVMInsightsPerfAndMap 'Microsoft.Insights/dataCollectionRules@2021-04-01' = if (parDataCollectionRuleVMInsightsExperience == 'PerfAndMap') {
+resource resDataCollectionRuleVMInsightsPerfAndMap 'Microsoft.Insights/dataCollectionRules@2024-03-11' = if (parDataCollectionRuleVMInsightsExperience == 'PerfAndMap') {
   name: parDataCollectionRuleVMInsightsName
   location: parLogAnalyticsWorkspaceLocation
   tags: parTags
@@ -321,7 +321,7 @@ resource resDataCollectionRuleVMInsightsPerfAndMap 'Microsoft.Insights/dataColle
   }
 }
 
-resource resDataCollectionRuleVMInsightsPerfOnly 'Microsoft.Insights/dataCollectionRules@2021-04-01' = if (parDataCollectionRuleVMInsightsExperience == 'PerfOnly') {
+resource resDataCollectionRuleVMInsightsPerfOnly 'Microsoft.Insights/dataCollectionRules@2024-03-11' = if (parDataCollectionRuleVMInsightsExperience == 'PerfOnly') {
   name: parDataCollectionRuleVMInsightsName
   location: parLogAnalyticsWorkspaceLocation
   tags: parTags
@@ -382,7 +382,7 @@ resource resDataCollectionRuleVMInsightsPerfOnlyLock 'Microsoft.Authorization/lo
   }
 }
 
-resource resDataCollectionRuleChangeTracking 'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
+resource resDataCollectionRuleChangeTracking 'Microsoft.Insights/dataCollectionRules@2024-03-11' = {
   name: parDataCollectionRuleChangeTrackingName
   location: parLogAnalyticsWorkspaceLocation
   tags: parTags
@@ -654,7 +654,7 @@ resource resDataCollectionRuleChangeTrackingLock 'Microsoft.Authorization/locks@
   }
 }
 
-resource resDataCollectionRuleMDFCSQL'Microsoft.Insights/dataCollectionRules@2021-04-01' = {
+resource resDataCollectionRuleMDFCSQL'Microsoft.Insights/dataCollectionRules@2024-03-11' = {
   name: parDataCollectionRuleMDFCSQLName
   location: parLogAnalyticsWorkspaceLocation
   tags: parTags
@@ -757,7 +757,7 @@ resource resChangeTrackingSolutionLock 'Microsoft.Authorization/locks@2020-05-01
   }
 }
 
-resource resLogAnalyticsLinkedServiceForAutomationAccount 'Microsoft.OperationalInsights/workspaces/linkedServices@2023-09-01' = if (parLogAnalyticsWorkspaceLinkAutomationAccount) {
+resource resLogAnalyticsLinkedServiceForAutomationAccount 'Microsoft.OperationalInsights/workspaces/linkedServices@2025-07-01' = if (parLogAnalyticsWorkspaceLinkAutomationAccount) {
   parent: resLogAnalyticsWorkspace
   name: parLogAnalyticsLinkedServiceAutomationAccountName
   properties: {
