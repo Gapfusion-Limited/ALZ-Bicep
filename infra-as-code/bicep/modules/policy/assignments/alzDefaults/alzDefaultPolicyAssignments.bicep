@@ -56,7 +56,7 @@ param parMsDefenderForCloudEmailSecurityContact string = ''
 param parMsDefenderForCloudLogAnalyticsResourceGroupName string = ''
 
 @description('Enable creation of Resource Group for Log Analytics workspace if it does not exist.')
-param parMsDefenderForCloudCreateLogAnalyticsResourceGroup string = ''
+param parMsDefenderForCloudCreateLogAnalyticsResourceGroup bool = false
 
 @description('Minimal severity level for alerts in Microsoft Defender for Cloud.')
 param parMsDefenderForCloudMinimalSeverity string = ''

@@ -72,7 +72,7 @@
       "value": "UKS-PRD-RSG-Sentinel-MadeUp"
     },
     "parMsDefenderForCloudCreateLogAnalyticsResourceGroup": {
-      "value": "false"
+      "value": false
     },
     "parMsDefenderForCloudMinimalSeverity": {
       "value": "Low"
