@@ -66,10 +66,16 @@
       "value": "uks-mgmt-aa-alz-001"
     },
     "parMsDefenderForCloudEmailSecurityContact": {
-      "value": "Paul.Ruler@gapfusion.com"
+      "value": "Paul.Ruler@gapfusion.com;Paul.Ruler@outlook.com"
     },
     "parMsDefenderForCloudLogAnalyticsResourceGroupName": {
       "value": "UKS-PRD-RSG-Sentinel-MadeUp"
+    },
+    "parMsDefenderForCloudCreateLogAnalyticsResourceGroup": {
+      "value": "false"
+    },
+    "parMsDefenderForCloudMinimalSeverity": {
+      "value": "Low"
     },
     "parDdosProtectionPlanId": {
       "value": ""

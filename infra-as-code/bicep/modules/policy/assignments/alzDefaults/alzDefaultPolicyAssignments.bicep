@@ -55,6 +55,12 @@ param parMsDefenderForCloudEmailSecurityContact string = ''
 @description('Resource Group name for the export to Log Analytics workspace configuration')
 param parMsDefenderForCloudLogAnalyticsResourceGroupName string = ''
 
+@description('Enable creation of Resource Group for Log Analytics workspace if it does not exist.')
+param parMsDefenderForCloudCreateLogAnalyticsResourceGroup string = ''
+
+@description('Minimal severity level for alerts in Microsoft Defender for Cloud.')
+param parMsDefenderForCloudMinimalSeverity string = ''
+
 @description('Enable/disable DDoS Network Protection.')
 param parDdosEnabled bool = true
 
@@ -697,6 +703,12 @@ module modPolAssiIntRootDeployMdfcConfig '../../../policy/assignments/policyAssi
       }
       logAnalytics: {
         value: parSentinelLogAnalyticsWorkspaceResourceId
+      }
+      createResourceGroup: {
+        value: parMsDefenderForCloudCreateLogAnalyticsResourceGroup
+      }
+      minimalSeverity: {
+        value: parMsDefenderForCloudMinimalSeverity
       }
     }
     parPolicyAssignmentIdentityType: varPolicyAssignmentDeployMDFCConfig.libDefinition.identity.type
