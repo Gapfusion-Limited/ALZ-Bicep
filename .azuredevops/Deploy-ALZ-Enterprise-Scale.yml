@@ -276,6 +276,7 @@ stages:
             name: Logging_and_Security_Module_Deployment
             displayName: "Logging and Security Module Deployment"
             inputs:
+              errorActionPreference: 'continue'
               azureSubscription: $(serviceConnectionName)
               azurePowerShellVersion: "LatestVersion"
               pwsh: true

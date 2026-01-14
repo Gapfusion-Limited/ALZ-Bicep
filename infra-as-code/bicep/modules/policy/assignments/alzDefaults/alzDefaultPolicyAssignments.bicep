@@ -25,6 +25,9 @@ param parLogAnalyticsWorkSpaceAndAutomationAccountLocation string = 'eastus'
 @description('Resource ID of Log Analytics Workspace.')
 param parLogAnalyticsWorkspaceResourceId string = ''
 
+@description('Resource ID of the SentinelLog Analytics Workspace.')
+param parSentinelLogAnalyticsWorkspaceResourceId string = ''
+
 @sys.description('Category of logs for supported resource logging for Log Analytics Workspace.')
 param parLogAnalyticsWorkspaceResourceCategory string = 'allLogs'
 
@@ -48,6 +51,9 @@ param parAutomationAccountName string = 'alz-automation-account'
 
 @description('Email address for Microsoft Defender for Cloud alerts.')
 param parMsDefenderForCloudEmailSecurityContact string = ''
+
+@description('Resource Group name for the export to Log Analytics workspace configuration')
+param parMsDefenderForCloudLogAnalyticsResourceGroupName string = ''
 
 @description('Enable/disable DDoS Network Protection.')
 param parDdosEnabled bool = true
@@ -686,8 +692,11 @@ module modPolAssiIntRootDeployMdfcConfig '../../../policy/assignments/policyAssi
       ascExportResourceGroupLocation: {
         value: parLogAnalyticsWorkSpaceAndAutomationAccountLocation
       }
+      ascExportResourceGroupName: {
+        value: parMsDefenderForCloudLogAnalyticsResourceGroupName
+      }
       logAnalytics: {
-        value: parLogAnalyticsWorkspaceResourceId
+        value: parSentinelLogAnalyticsWorkspaceResourceId
       }
     }
     parPolicyAssignmentIdentityType: varPolicyAssignmentDeployMDFCConfig.libDefinition.identity.type
@@ -1177,7 +1186,7 @@ module modPolAssiPlatformDeployMdfcDefSqlAma '../../../policy/assignments/policy
     parPolicyAssignmentEnforcementMode: (parDisableAlzDefaultPolicies || contains(parPolicyAssignmentsToDisableEnforcement, varPolicyAssignmentDeployMdfcDefSqlAma.libDefinition.name)) ? 'DoNotEnforce' : varPolicyAssignmentDeployMdfcDefSqlAma.libDefinition.properties.enforcementMode
     parPolicyAssignmentParameterOverrides: {
       userWorkspaceResourceId: {
-        value: parLogAnalyticsWorkspaceResourceId
+        value: parSentinelLogAnalyticsWorkspaceResourceId
       }
       dcrResourceId: {
         value: parDataCollectionRuleMDFCSQLResourceId
@@ -1967,7 +1976,7 @@ module modPolAssiLzsmDeployMdfcDefSqlAma '../../../policy/assignments/policyAssi
     parPolicyAssignmentEnforcementMode: (parDisableAlzDefaultPolicies || contains(parPolicyAssignmentsToDisableEnforcement, varPolicyAssignmentDeployMdfcDefSqlAma.libDefinition.name)) ? 'DoNotEnforce' : varPolicyAssignmentDeployMdfcDefSqlAma.libDefinition.properties.enforcementMode
     parPolicyAssignmentParameterOverrides: {
       userWorkspaceResourceId: {
-        value: parLogAnalyticsWorkspaceResourceId
+        value: parSentinelLogAnalyticsWorkspaceResourceId
       }
       dcrResourceId: {
         value: parDataCollectionRuleMDFCSQLResourceId

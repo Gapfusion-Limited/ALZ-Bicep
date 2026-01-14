@@ -41,6 +41,9 @@
     "parLogAnalyticsWorkspaceResourceId": {
       "value": "/subscriptions/c4d2701a-4eae-4115-9dca-72a36addb2cf/resourcegroups/uks-mgmt-rsg-alz-logging-001/providers/microsoft.operationalinsights/workspaces/uks-mgmt-log-alz-001"
     },
+    "parSentinelLogAnalyticsWorkspaceResourceId": {
+      "value": "/subscriptions/xxx/resourcegroups/uks-prd-rsg-sentinel/providers/microsoft.operationalinsights/workspaces/uks-prd-law-sentinel"
+    },
     "parLogAnalyticsWorkspaceLogRetentionInDays": {
       "value": "30" //365
     },
@@ -64,6 +67,9 @@
     },
     "parMsDefenderForCloudEmailSecurityContact": {
       "value": "Paul.Ruler@gapfusion.com"
+    },
+    "parMsDefenderForCloudLogAnalyticsResourceGroupName": {
+      "value": "UKS-PRD-RSG-Sentinel-MadeUp"
     },
     "parDdosProtectionPlanId": {
       "value": ""
