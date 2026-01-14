@@ -6,6 +6,9 @@
       //"value": "alz-log-analytics"
       "value": "uks-mgmt-log-alz-001"
     },
+    "parSentinelLogAnalyticsWorkspaceId": {
+      "value": "/subscriptions/xxx/resourcegroups/uks-prd-rsg-sentinel/providers/microsoft.operationalinsights/workspaces/uks-prd-law-sentinel"
+    },
     "parLogAnalyticsWorkspaceLocation": {
       "value": "uksouth"
     },
@@ -16,11 +19,13 @@
       "value": 100
     },
     "parLogAnalyticsWorkspaceLogRetentionInDays": {
-      "value": 365
+      "value": 31
+    },
+    "parLogAnalyticsWorkspaceDailyQuotaGb": {
+      "value": 5
     },
     "parLogAnalyticsWorkspaceSolutions": {
       "value": [
-        "SecurityInsights",
         "ChangeTracking"
       ]
     },

@@ -27,6 +27,7 @@
       "value": [
         "Deny-RSG-Locations",
         "Deny-Resource-Locations",
+        "Deny-Public-IP",
         "Deny-Public-IP-On-NIC",
         "Deny-Public-Endpoints"
       ]

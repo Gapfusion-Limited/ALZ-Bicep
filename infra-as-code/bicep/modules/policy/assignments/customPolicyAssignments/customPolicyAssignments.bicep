@@ -61,6 +61,7 @@ var varModDepNames = {
   modPolAssiLzsDenyPublicEndpoints: take('${varDeploymentNameWrappers.basePrefix}-denyPubEnd-lz-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
   modPolAssiLzsDenyPipOnNic: take('${varDeploymentNameWrappers.basePrefix}-denyPipNic-lz-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
   modPolAssiLzsDenyHybridNet: take('${varDeploymentNameWrappers.basePrefix}-denyHybridNet-lz-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
+  modPolAssiLzsDenyPublicIp: take('${varDeploymentNameWrappers.basePrefix}-denyPublicIp-lz-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
 }
 
 var varPolicyAssignmentDeployDenyResLocations = {
@@ -86,6 +87,11 @@ var varPolicyAssignmentDenyPublicIPOnNIC = {
 var varPolicyAssignmentDenyHybridNetworking = {
   definitionId: '/providers/Microsoft.Authorization/policyDefinitions/6c112d4e-5bc7-47ae-a041-ea2d9dccd749'
   libDefinition: loadJsonContent('../../../policy/assignments/lib/policy_assignments/policy_assignment_es_deny_hybridnetworking.tmpl.json')
+}
+
+var varPolicyAssignmentDenyPublicIP = {
+  definitionId: '/providers/Microsoft.Authorization/policyDefinitions/6c112d4e-5bc7-47ae-a041-ea2d9dccd749'
+  libDefinition: loadJsonContent('../../../policy/assignments/lib/policy_assignments/policy_assignment_es_deny_public_ip.tmpl.json')
 }
 
 // Management Groups Variables - Used For Policy Assignments
@@ -201,6 +207,22 @@ module modPolAssiLzsDenyPublicEndpoints '../../../policy/assignments/policyAssig
     parPolicyAssignmentParameters: varPolicyAssignmentDenyPublicEndpoints.libDefinition.properties.parameters
     parPolicyAssignmentIdentityType: varPolicyAssignmentDenyPublicEndpoints.libDefinition.identity.type
     parPolicyAssignmentEnforcementMode: (parDisableCustomDefaultPolicies || contains(parPolicyAssignmentsToDisableEnforcement, varPolicyAssignmentDenyPublicEndpoints.libDefinition.name)) ? 'DoNotEnforce' : varPolicyAssignmentDenyPublicEndpoints.libDefinition.properties.enforcementMode
+  }
+}
+
+// Module - Policy Assignment - Deny-Public-IP
+module modPolAssiLzsDenyPublicIp '../../../policy/assignments/policyAssignmentManagementGroup.bicep' = if (!contains(parExcludedPolicyAssignments, varPolicyAssignmentDenyPublicIP.libDefinition.name)) {
+  scope: managementGroup(varManagementGroupIdsUnioned.landingZones)
+  name: varModDepNames.modPolAssiLzsDenyPublicIp
+  params: {
+    parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyPublicIP.definitionId
+    parPolicyAssignmentDefinitionVersion: varPolicyAssignmentDenyPublicIP.libDefinition.properties.definitionVersion
+    parPolicyAssignmentName: varPolicyAssignmentDenyPublicIP.libDefinition.name
+    parPolicyAssignmentDisplayName: varPolicyAssignmentDenyPublicIP.libDefinition.properties.displayName
+    parPolicyAssignmentDescription: varPolicyAssignmentDenyPublicIP.libDefinition.properties.description
+    parPolicyAssignmentParameters: varPolicyAssignmentDenyPublicIP.libDefinition.properties.parameters
+    parPolicyAssignmentIdentityType: varPolicyAssignmentDenyPublicIP.libDefinition.identity.type
+    parPolicyAssignmentEnforcementMode: (parDisableCustomDefaultPolicies || contains(parPolicyAssignmentsToDisableEnforcement, varPolicyAssignmentDenyPublicIP.libDefinition.name)) ? 'DoNotEnforce' : varPolicyAssignmentDenyPublicIP.libDefinition.properties.enforcementMode
   }
 }
 

@@ -50,6 +50,20 @@
           "displayName": "Minimal severity",
           "description": "Defines the minimal alert severity which will be sent as email notifications"
         }
+      },
+      "minimalRiskLevel": {
+        "type": "String",
+        "defaultValue": "Critical",
+        "allowedValues": [
+          "Critical",
+          "High",
+          "Medium",
+          "Low"
+        ],
+        "metadata": {
+          "displayName": "Minimal attack path risk level",
+          "description": "Defines the minimal attack path risk level which will be sent as email notifications"
+        }
       }
     },
     "policyRule": {
@@ -96,6 +110,9 @@
                 },
                 "minimalSeverity": {
                   "value": "[parameters('minimalSeverity')]"
+                },
+                "minimalRiskLevel": {
+                  "value": "[parameters('minimalRiskLevel')]"
                 }
               },
               "template": {
@@ -112,6 +129,12 @@
                     "type": "string",
                     "metadata": {
                       "description": "Minimal severity level reported"
+                    }
+                  },
+                  "minimalRiskLevel": {
+                    "type": "string",
+                    "metadata": {
+                      "description": "Minimal risk level reported"
                     }
                   }
                 },
@@ -134,6 +157,10 @@
                         {
                           "sourceType": "Alert",
                           "minimalSeverity": "[parameters('minimalSeverity')]"
+                        },
+                        {
+                          "sourceType": "AttackPath",
+                          "minimalSeverity": "[parameters('minimalRiskLevel')]"
                         }
                       ]
                     }

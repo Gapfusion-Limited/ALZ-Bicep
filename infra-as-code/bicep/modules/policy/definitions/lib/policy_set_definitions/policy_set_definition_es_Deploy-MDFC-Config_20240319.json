@@ -37,6 +37,20 @@
           "description": "Defines the minimal alert severity which will be sent as email notifications"
         }
       },
+      "minimalRiskLevel": {
+        "type": "String",
+        "defaultValue": "Critical",
+        "allowedValues": [
+          "Critical",
+          "High",
+          "Medium",
+          "Low"
+        ],
+        "metadata": {
+          "displayName": "Minimal attack path risk level",
+          "description": "Defines the minimal attack path risk level which will be sent as email notifications"
+        }
+      },
       "logAnalytics": {
         "type": "String",
         "metadata": {
@@ -639,6 +653,9 @@
           },
           "minimalSeverity": {
             "value": "[[parameters('minimalSeverity')]"
+          },
+          "minimalRiskLevel": {
+            "value": "[[parameters('minimalRiskLevel')]"
           }
         },
         "groupNames": [],

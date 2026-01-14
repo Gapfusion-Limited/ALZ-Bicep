@@ -61,6 +61,9 @@ param parMsDefenderForCloudCreateLogAnalyticsResourceGroup bool = false
 @description('Minimal severity level for alerts in Microsoft Defender for Cloud.')
 param parMsDefenderForCloudMinimalSeverity string = ''
 
+@description('Minimal risk level for attack paths in Microsoft Defender for Cloud.')
+param parMsDefenderForCloudMinimalRiskLevel string = ''
+
 @description('Enable/disable DDoS Network Protection.')
 param parDdosEnabled bool = true
 
@@ -179,7 +182,6 @@ var varModDepNames = {
   modPolAssiLzsEnforceAsr: take('${varDeploymentNameWrappers.basePrefix}-enforceAsr-lz-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
   modPolAssiLzsAumCheckUpdates: take('${varDeploymentNameWrappers.basePrefix}-aumChkUpd-lz-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
   modPolAssiLzsAuditAppGwWaf: take('${varDeploymentNameWrappers.basePrefix}-auditAppGwWaf-lz-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
-  modPolAssiLzsDenyPublicIp: take('${varDeploymentNameWrappers.basePrefix}-denyPublicIp-lz-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
   modPolAssiLzsCorpDenyPublicEndpoints: take('${varDeploymentNameWrappers.basePrefix}-denyPubEnd-corp-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
   modPolAssiLzsConfidentialCorpDenyPublicEndpoints: take('${varDeploymentNameWrappers.basePrefix}-denyPubEnd-confCorp-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
   modPolAssiLzsCorpDeployPrivateDnsZones: take('${varDeploymentNameWrappers.basePrefix}-deployPrivDns-corp-${varDeploymentNameWrappers.baseSuffixTenantAndManagementGroup}', 64)
@@ -709,6 +711,9 @@ module modPolAssiIntRootDeployMdfcConfig '../../../policy/assignments/policyAssi
       }
       minimalSeverity: {
         value: parMsDefenderForCloudMinimalSeverity
+      }
+      minimalRiskLevel: {
+        value: parMsDefenderForCloudMinimalRiskLevel
       }
     }
     parPolicyAssignmentIdentityType: varPolicyAssignmentDeployMDFCConfig.libDefinition.identity.type
@@ -2097,24 +2102,6 @@ module modPolAssiLzsAuditAppGwWaf '../../../policy/assignments/policyAssignmentM
     parPolicyAssignmentParameters: varPolicyAssignmentAuditAppGWWAF.libDefinition.properties.parameters
     parPolicyAssignmentIdentityType: varPolicyAssignmentAuditAppGWWAF.libDefinition.identity.type
     parPolicyAssignmentEnforcementMode: (parDisableAlzDefaultPolicies || contains(parPolicyAssignmentsToDisableEnforcement, varPolicyAssignmentAuditAppGWWAF.libDefinition.name)) ? 'DoNotEnforce' : varPolicyAssignmentAuditAppGWWAF.libDefinition.properties.enforcementMode
-    parTelemetryOptOut: parTelemetryOptOut
-  }
-}
-
-//Additional LandingZones assignments
-// Module - Policy Assignment - Deny-Public-IP
-module modPolAssiLzsDenyPublicIp '../../../policy/assignments/policyAssignmentManagementGroup.bicep' = if (!contains(parExcludedPolicyAssignments, varPolicyAssignmentDenyPublicIP.libDefinition.name)) {
-  scope: managementGroup(varManagementGroupIdsUnioned.landingZones)
-  name: varModDepNames.modPolAssiLzsDenyPublicIp
-  params: {
-    parPolicyAssignmentDefinitionId: varPolicyAssignmentDenyPublicIP.definitionId
-    parPolicyAssignmentDefinitionVersion: varPolicyAssignmentDenyPublicIP.libDefinition.properties.definitionVersion
-    parPolicyAssignmentName: varPolicyAssignmentDenyPublicIP.libDefinition.name
-    parPolicyAssignmentDisplayName: varPolicyAssignmentDenyPublicIP.libDefinition.properties.displayName
-    parPolicyAssignmentDescription: varPolicyAssignmentDenyPublicIP.libDefinition.properties.description
-    parPolicyAssignmentParameters: varPolicyAssignmentDenyPublicIP.libDefinition.properties.parameters
-    parPolicyAssignmentIdentityType: varPolicyAssignmentDenyPublicIP.libDefinition.identity.type
-    parPolicyAssignmentEnforcementMode: (parDisableAlzDefaultPolicies || contains(parPolicyAssignmentsToDisableEnforcement, varPolicyAssignmentDenyPublicIP.libDefinition.name)) ? 'DoNotEnforce' : varPolicyAssignmentDenyPublicIP.libDefinition.properties.enforcementMode
     parTelemetryOptOut: parTelemetryOptOut
   }
 }

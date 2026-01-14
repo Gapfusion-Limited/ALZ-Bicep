@@ -26,6 +26,9 @@ param parGlobalResourceLock lockType = {
 @sys.description('Log Analytics Workspace name.')
 param parLogAnalyticsWorkspaceName string = 'alz-log-analytics'
 
+@sys.description('Sentinel Log Analytics Workspace Resource Id - Required for MDFC Defender for SQL DCR destination.')
+param parSentinelLogAnalyticsWorkspaceId string = ''
+
 @sys.description('Log Analytics region name - Ensure the regions selected is a supported mapping as per: https://docs.microsoft.com/azure/automation/how-to/region-mappings.')
 param parLogAnalyticsWorkspaceLocation string = resourceGroup().location
 
@@ -108,6 +111,9 @@ param parLogAnalyticsWorkspaceCapacityReservationLevel int = 100
 @maxValue(730)
 @sys.description('Number of days of log retention for Log Analytics Workspace.')
 param parLogAnalyticsWorkspaceLogRetentionInDays int = 365
+
+@sys.description('Daily data ingestion quota (in GB) for Log Analytics Workspace.')
+param parLogAnalyticsWorkspaceDailyQuotaGb int
 
 @sys.description('''Resource Lock Configuration for Log Analytics Workspace.
 
@@ -249,6 +255,9 @@ resource resLogAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2025
       capacityReservationLevel: parLogAnalyticsWorkspaceSkuName == 'CapacityReservation' ? parLogAnalyticsWorkspaceCapacityReservationLevel : null
     }
     retentionInDays: parLogAnalyticsWorkspaceLogRetentionInDays
+    workspaceCapping: {
+      dailyQuotaGb: parLogAnalyticsWorkspaceDailyQuotaGb
+    }
   }
 }
 
@@ -682,7 +691,7 @@ resource resDataCollectionRuleMDFCSQL'Microsoft.Insights/dataCollectionRules@202
     destinations: {
       logAnalytics: [
         {
-          workspaceResourceId: resLogAnalyticsWorkspace.id
+          workspaceResourceId: parSentinelLogAnalyticsWorkspaceId
           name: 'Microsoft-DefenderForSQL-Dest'
         }
       ]
